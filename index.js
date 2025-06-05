@@ -1,3 +1,4 @@
+//Required libraries or files
 const express = require('express');
 const { v4: uuidv4 } = require('uuid');
 const store = require('./store');
@@ -5,11 +6,13 @@ const { getOverallStatus } = require('./utils');
 const { startWorker } = require('./processor');
 
 const app = express();
+//Middleware
 app.use(express.json());
 
+//POST endpoint to send request
 app.post('/ingest', (req, res) => {
   const { ids, priority } = req.body;
-
+  //CONDITION FOR CHECKING THE CORRECT INPUT
   if (!Array.isArray(ids) || !['HIGH', 'MEDIUM', 'LOW'].includes(priority)) {
     return res.status(400).json({ error: 'Invalid input' });
   }
@@ -39,7 +42,7 @@ app.post('/ingest', (req, res) => {
 
   res.status(202).json({ ingestion_id: ingestionId });
 });
-
+//GET ENPOINT TO RECIEVE STATUS 
 app.get('/status/:id', (req, res) => {
   const ingestion = store.ingestions[req.params.id];
   if (!ingestion) return res.status(404).json({ error: 'Not found' });
@@ -49,6 +52,7 @@ app.get('/status/:id', (req, res) => {
 });
 
 startWorker();
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
