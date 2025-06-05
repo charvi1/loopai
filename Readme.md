@@ -24,9 +24,13 @@ BODY-PARSER
 - Prioritized batch processing
 - Rate limit: 1 batch per 5 seconds
 - Status tracking
-- ##SCREENSHOT
 
+## SCREENSHOT
+--POST
   ![image](https://github.com/user-attachments/assets/92e736bb-eb4d-498c-80b0-a62e19ad75dd)
+  --GET
+  ![image](https://github.com/user-attachments/assets/b5fe1731-37e9-402d-8722-2166d70d9240)
+
 
 
 ## Run Locally
